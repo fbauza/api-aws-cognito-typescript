@@ -12,6 +12,7 @@ export interface IUser {
 
 export interface IAuthenticatedRequest extends Request {
   user?: IUser;
+  // comentario prueba github
 }
 
 const authMiddleware: Handler = async (
