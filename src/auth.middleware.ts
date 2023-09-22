@@ -10,12 +10,32 @@ export interface IUser {
   email: string;
 }
 
+export interface IPerson {
+  firstName: string;
+  lastName: string;
+}
+
 export interface IAuthenticatedRequest extends Request {
   user?: IUser;
   // comentario prueba github
   // comentario segundo
   // comenatorio tercero
+  // Agrego nombre y apellido
+  person?: IPerson;
 }
+
+/*
+req {
+  user {
+    id: 1
+    email: abc@gmail.com
+  }
+  person {
+    fistName: "Fabian"
+    lastNAme: "Bauza"
+  }
+}
+*/
 
 const authMiddleware: Handler = async (
   req: IAuthenticatedRequest,
@@ -23,6 +43,9 @@ const authMiddleware: Handler = async (
   next
 ) => {
   try {
+    const namePerson = req.person?.firstName;
+    console.log("namePerson", namePerson);
+
     const token = req.headers["authorization"]!;
     const rawUser = await identityServiceProvider
       .getUser({ AccessToken: token })
